@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIA: Birthday Intelligence Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
+        body { font-family: 'Outfit', sans-serif; background: #07040a; color: white; overflow: hidden; touch-action: manipulation; }
+        .glass { background: rgba(255, 105, 180, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 192, 203, 0.1); }
+        .heart { position: absolute; color: #ff69b4; opacity: 0.6; animation: floatUp 3s ease-in infinite; pointer-events: none; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) scale(0); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        .pink-glow { text-shadow: 0 0 20px rgba(236, 72, 153, 0.8); }
+        .card-inner { background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,105,180,0.1) 100%); }
+        .scan-line { height: 2px; background: #fb7185; position: absolute; width: 100%; animation: scan 2s infinite; box-shadow: 0 0 10px #fb7185; }
+        @keyframes scan { 0%, 100% { top: 0; } 50% { top: 100%; } }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div id="heart-fountain"></div>
+
+    <div id="lvl1" class="w-full max-w-sm glass p-8 rounded-[2rem] text-center z-10">
+        <p class="text-[10px] tracking-widest text-pink-500 font-bold mb-4 uppercase">Step 01: Core Verification</p>
+        <h1 class="text-2xl font-bold mb-8">Are you the most beautiful girl I've ever seen</h1>
+        <div class="relative h-32 flex flex-col gap-3">
+            <button onclick="next(2)" class="w-full bg-white text-black font-black py-4 rounded-xl active:scale-95 transition-all">YES, I AM READY</button>
+            <button id="no-btn" onmouseover="moveBtn()" onclick="moveBtn()" class="w-full bg-zinc-900 text-zinc-600 py-4 rounded-xl font-bold">NO</button>
+        </div>
+    </div>
+
+    <div id="lvl2" class="hidden w-full max-w-sm glass p-8 rounded-[2rem] text-center z-10">
+        <p class="text-[10px] tracking-widest text-pink-500 font-bold mb-4 uppercase">Step 02: Human Validation</p>
+        <h1 class="text-xl font-bold mb-4">Are you a Robot?</h1>
+        <p class="text-xs text-zinc-400 mb-6">Prove you're human by giving this heart exactly 10 beats.</p>
+        <div class="text-7xl cursor-pointer active:scale-150 transition-transform my-6" onclick="countBeat()">💓</div>
+        <div class="text-2xl font-black text-pink-500" id="beat-count">0 / 10</div>
+    </div>
+
+    <div id="lvl3" class="hidden w-full max-w-sm glass p-8 rounded-[2rem] text-center z-10">
+        <p class="text-[10px] tracking-widest text-pink-500 font-bold mb-4 uppercase">Step 03: Mood Check</p>
+        <h1 class="text-xl font-bold mb-8">Adjust the "Love Slider" to how much i love you :</h1>
+        <input type="range" min="1" max="100" value="1" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-pink-500" oninput="checkSlider(this.value)">
+        <p class="mt-6 text-2xl font-black text-pink-400" id="slider-val">1%</p>
+        <p class="text-[10px] text-zinc-500 mt-2 italic" id="slider-hint">Slide it to 1000% (I know it only goes to 100, just try!)</p>
+    </div>
+
+    <div id="lvl4" class="hidden w-full max-w-sm glass p-10 rounded-[2rem] text-center z-10">
+        <p class="text-[10px] tracking-widest text-pink-500 font-bold mb-4 uppercase">Step 04: Final Decryption</p>
+        <div class="w-full h-32 border border-pink-500/20 rounded-xl relative overflow-hidden mb-6 flex items-center justify-center">
+            <div class="scan-line"></div>
+            <div id="code-stream" class="text-[10px] font-mono text-pink-500/50 text-left p-2 overflow-hidden leading-tight"></div>
+        </div>
+        <h2 id="dec-text" class="text-sm font-bold">Accessing Encrypted Feelings...</h2>
+    </div>
+
+    <div id="final" class="hidden w-full max-w-sm text-center z-10 animate-in fade-in duration-1000">
+        <div class="glass p-1 rounded-[2.5rem] bg-gradient-to-br from-pink-500/20 to-violet-500/20 shadow-2xl">
+            <div class="card-inner p-8 rounded-[2.3rem] border border-white/10">
+                <div class="text-6xl mb-4 drop-shadow-lg">✨🎁✨</div>
+                <h1 class="text-4xl font-black mb-2 pink-glow tracking-tighter italic">HAPPY BIRTHDAY!</h1>
+                <p class="text-xs uppercase tracking-[0.3em] text-pink-400 font-bold mb-6">Birthday Mission Accomplished</p>
+                
+                <div class="text-left space-y-4 mb-8">
+                    <p class="text-sm text-zinc-200 leading-relaxed italic">
+                        "You beat the game! But honestly, I'm the real winner because I get to celebrate another year with you"
+                    </p>
+                    <div class="h-[1px] bg-white/10 w-full"></div>
+                    <p class="text-pink-300 font-bold text-center uppercase text-[10px]">Unlocked Perks:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-black/30 p-2 rounded-lg border border-white/5 text-[9px] text-center">🏆 Unlimited Hugs</div>
+                        <div class="bg-black/30 p-2 rounded-lg border border-white/5 text-[9px] text-center">⭐ Premium Attention</div>
+                    </div>
+                </div>
+
+                <p class="text-lg font-bold gradient-text">"I love you more than 1s and 0s."</p>
+                <div class="mt-8 flex justify-center gap-4">
+                    <span class="text-2xl animate-bounce">🎂</span>
+                    <span class="text-2xl animate-bounce [animation-delay:0.2s]">🎈</span>
+                    <span class="text-2xl animate-bounce [animation-delay:0.4s]">💖</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // HEART FOUNTAIN
+        setInterval(() => {
+            const h = document.createElement('div');
+            h.classList.add('heart');
+            h.innerHTML = ['❤️', '💖', '💗', '🌸'][Math.floor(Math.random()*4)];
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.getElementById('heart-fountain').appendChild(h);
+            setTimeout(() => h.remove(), 3000);
+        }, 200);
+
+        function next(n) {
+            document.querySelectorAll('body > div:not(#heart-fountain)').forEach(d => d.classList.add('hidden'));
+            const s = ['','lvl1','lvl2','lvl3','lvl4','final'];
+            document.getElementById(s[n]).classList.remove('hidden');
+            if(n === 4) startDecoding();
+        }
+
+        // LVL 1: No Button
+        function moveBtn() {
+            const b = document.getElementById('no-btn');
+            b.style.position = 'fixed';
+            b.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            b.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            b.innerText = ["Try harder!", "Nope!", "Access Denied", "Error 404"][Math.floor(Math.random()*4)];
+        }
+
+        // LVL 2: Captcha
+        let beats = 0;
+        function countBeat() {
+            beats++;
+            document.getElementById('beat-count').innerText = `${beats} / 10`;
+            if(beats === 10) setTimeout(() => next(3), 500);
+        }
+
+        // LVL 3: Slider
+        function checkSlider(v) {
+            document.getElementById('slider-val').innerText = v + '%';
+            if(v == 100) {
+                document.getElementById('slider-val').innerText = "1000% !!!";
+                document.getElementById('slider-hint').innerText = "CALIBRATION COMPLETE. YOU LOVE ME A LOT.";
+                setTimeout(() => next(4), 1000);
+            }
+        }
+
+        // LVL 4: Matrix Decoder
+        function startDecoding() {
+            const code = document.getElementById('code-stream');
+            const lines = ["INIT LOVE_PROTOCOL...", "BYPASSING CUTENESS_FILTER...", "SCANNING FOR GIFTS...", "DECRYPTING_HAPPINESS...", "HEART_RATE_MAXED...", "BIRTHDAY_DETECTED..."];
+            let i = 0;
+            const timer = setInterval(() => {
+                code.innerHTML += lines[i] + "<br>";
+                i++;
+                if(i === lines.length) {
+                    clearInterval(timer);
+                    setTimeout(() => next(5), 1000);
+                }
+            }, 800);
+        }
+    </script>
+</body>
+</html>
